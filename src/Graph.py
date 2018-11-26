@@ -1,82 +1,68 @@
 import math
+import copy
+
 
 class Town:
     def __init__(self, townId, townEnterFee):
         self.id = townId
-        self.adjacent = {}
+        self.adjacent = []
         self.townEnterFee = townEnterFee
+        self.partnershipNumber = None
 
         self.distance = math.inf
-        self.visited = False
         self.previous = None
 
-    def addNeighbour(self, neighbour, road):
-        self.adjacent[neighbour] = road
+    def addConnection(self, road):
+        self.adjacent.append(road)
 
-    def getConnections(self):
-        return self.adjacent.keys()
-
-    def getId(self):
-        return self.id
-
-    def getRoad(self, neighbour):
-        return self.adjacent[neighbour]
-
-    def getTownEnterFee(self):
-        return self.townEnterFee
-
-    def setDistance(self, dist):
-        self.distance = dist
-
-    def getDistance(self):
-        return self.distance
-
-    def setPrevious(self, prev):
-        self.previous = prev
-
-    def setVisited(self):
-        self.visited = True
+    # def __cmp__(self, other):
+    #     return self.cmp(self.distance, other.distance)
 
     def __lt__(self, other):
-        return self.getDistance() < other.getDistance()
+        return self.distance < other.distance
+
+    def addChangedGraphToAdjacent(self, graph):
+
+        townToSwap = graph.getTown(self.id)
+
+        for road in townToSwap.adjacent:
+            self.adjacent.append(road)
+
+            if road.firstTown.id == self.id:
+                road.firstTown = self
+            else:
+                road.secondTown = self
+
+        graph.setTown(self.id, self)
+        graph.discountOnPartnershipTownFee(self.partnershipNumber, self.id)
 
 
 class Road:
-    def __init__(self, roadEnterFee, hoursOfDriving):
+    def __init__(self, roadEnterFee, hoursOfDriving, town1, town2):
         self.roadEnterFee = roadEnterFee
         self.hoursOfDriving = hoursOfDriving
-
-    def getRoadEnterFee(self):
-        return self.roadEnterFee
-
-    def getHoursOfDriving(self):
-        return self.hoursOfDriving
+        self.firstTown = town1
+        self.secondTown = town2
 
 
 class GraphOfTowns:
     def __init__(self, costOfOneHourTrip):
         self.listOfTownPartnerships = list()
         self.townDictionary = {}
-        self.amountOfTowns = 0
         self.costOfOneHourTrip = costOfOneHourTrip
+        self.finalTownList = []
 
     def __iter__(self):
         return iter(self.townDictionary.values())
-
-    def getCostOfOneHourTrip(self):
-        return self.costOfOneHourTrip
-
-    def getPartnerships(self):
-        return self.listOfTownPartnerships
 
     def addNewTownPartnership(self):
         self.listOfTownPartnerships.append(list())
 
     def addTownToTownPartnership(self, townId, numOfPartnership):
+        self.getTown(townId).partnershipNumber = numOfPartnership
         self.listOfTownPartnerships[numOfPartnership].append(townId)
 
     def addTown(self, townId, townEnterFee):
-        self.amountOfTowns += 1  # add exception when same id
         newTown = Town(townId, townEnterFee)
         self.townDictionary[townId] = newTown
 
@@ -87,16 +73,33 @@ class GraphOfTowns:
             return None
 
     def addRoad(self, frm, to, roadEnterFee, hoursOfDriving):
-        road = Road(roadEnterFee, hoursOfDriving)
 
-        self.townDictionary[frm].addNeighbour(to, road)
-        self.townDictionary[to].addNeighbour(frm, road)
+        town1 = self.getTown(frm)
+        town2 = self.getTown(to)
+
+        road = Road(roadEnterFee, hoursOfDriving, town1, town2)
+
+        town1.addConnection(road)
+        town2.addConnection(road)
 
     def getTowns(self):
         return self.townDictionary.keys()
 
-    def checkIfRoadExists(self, frm, to):
-        if to in self.townDictionary[frm].getConnections():
-            return True
-        else:
-            return False
+    def setTown(self, townId, townNode):
+        self.townDictionary[townId] = townNode
+
+    def discountOnPartnershipTownFee(self, partnershipNumber, enteredTownId):
+        listOfTowns = self.listOfTownPartnerships[partnershipNumber]
+
+        for town in listOfTowns:
+            if town == enteredTownId:
+                continue
+            else:
+                self.getTown(town).townEnterFee = 0
+
+
+    # def checkIfRoadExists(self, frm, to):
+    #     if to in self.townDictionary[frm].getConnections():
+    #         return True
+    #     else:
+    #         return False

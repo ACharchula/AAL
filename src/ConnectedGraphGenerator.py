@@ -60,4 +60,5 @@ def generateConnectedGraph(amountOfVertices, amountOfPartnerships):
 
     nx.draw(drawing, with_labels=True)
     plt.show()
+
     return graph

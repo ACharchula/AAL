@@ -1,11 +1,12 @@
 import heapq
+import copy
 
 path = list()
 bestPath = None
 bestCost = None
 
 
-def findShortestPathUsingBruteForce(graph, frm, to): # time here!!!
+def findShortestPathUsingBruteForce(graph, frm, to):  # time here!!!
     bruteForce(graph, frm, to, 0, list())
     print(bestPath, bestCost)
 
@@ -34,7 +35,6 @@ def bruteForce(graph, frm, to, weight, noTownFee):
             bestPath = path.copy()
             bestCost = weight
 
-        print(path)
         del path[len(path) - 1]
         return
 
@@ -55,36 +55,111 @@ def bruteForce(graph, frm, to, weight, noTownFee):
     del path[len(path) - 1]
 
 
-def dijkstra(graph, frm, to):
-    frmNode = graph.getTown(frm)
-    frmNode.setDistance(0)
+# def dijkstra(graph, frm):
+#     frmNode = graph.getTown(frm)
+#     frmNode.setDistance(0)
+#
+#     unvisitedQueue = [v for v in graph]
+#
+#
+#     heapq.heapify(unvisitedQueue)
+#
+#     while len(unvisitedQueue):
+#         current = heapq.heappop(unvisitedQueue)
+#         current.setVisited()
+#
+#         for nextNodeId in current.adjacent:
+#             nextNode = graph.getTown(nextNodeId)
+#             if nextNode.visited:
+#                 continue
+#
+#             road = current.getRoad(nextNodeId)
+#             newDist = current.getDistance() + road.getHoursOfDriving() * graph.getCostOfOneHourTrip() + road.getRoadEnterFee() + nextNode.getTownEnterFee()
+#
+#             if newDist < nextNode.getDistance():
+#                 nextNode.setDistance(newDist)
+#                 nextNode.setPrevious(current)
+#
+#         while len(unvisitedQueue):
+#             heapq.heappop(unvisitedQueue)
+#
+#         unvisitedQueue = [v for v in graph if not v.visited]
+#         heapq.heapify(unvisitedQueue)
 
-    unvisitedQueue = [v for v in graph]
-    heapq.heapify(unvisitedQueue)
-    while len(unvisitedQueue):
-        current = heapq.heappop(unvisitedQueue)
-        current.setVisited()
+def dijkstrav2(graph, startId, endId):
+    cleanGraph = copy.deepcopy(graph)
 
-        for nextNodeId in current.adjacent:
-            nextNode = graph.getTown(nextNodeId)
-            if nextNode.visited:
-                continue
+    queue = []
+    startNode = graph.getTown(startId)
+    startNode.distance = 0
 
-            road = current.getRoad(nextNodeId)
-            newDist = current.getDistance() + road.getHoursOfDriving() * graph.getCostOfOneHourTrip() + road.getRoadEnterFee() + nextNode.getTownEnterFee()
+    heapq.heappush(queue, startNode)
 
-            if newDist < nextNode.getDistance():
-                nextNode.setDistance(newDist)
-                nextNode.setPrevious(current)
+    while queue:
+        current = heapq.heappop(queue)
 
-        while len(unvisitedQueue):
-            heapq.heappop(unvisitedQueue)
+        if current.id == endId:
+            graph.finalTownList.append(current)
 
-        unvisitedQueue = [ v for v in graph if not v.visited]
-        heapq.heapify(unvisitedQueue)
+        print(current.id)
 
-def shortest(v, path):
-    if v.previous:
-        path.append(v.previous.getId())
-        shortest(v.previous, path)
-    return
+        if current.partnershipNumber is not None and current.townEnterFee != 0:
+            copied = copy.deepcopy(cleanGraph)
+            current.addChangedGraphToAdjacent(copied)
+
+        for road in current.adjacent:
+
+            if road.secondTown.id != current.id:
+                nextNode = road.secondTown
+            else:
+                nextNode = road.firstTown
+
+            newDistance = current.distance + road.hoursOfDriving * graph.costOfOneHourTrip + road.roadEnterFee \
+                          + nextNode.townEnterFee
+
+            if newDistance < nextNode.distance:
+                nextNode.previous = current
+                nextNode.distance = newDistance
+                heapq.heappush(queue, nextNode)
+
+
+
+
+def getShortestPath(graph, startNodeId):
+
+    minDistance = 0 ##pokaz wszystkie sciezki nei tylko jedna -- do zmienienia
+    minTown = None
+
+    for town in graph.finalTownList:
+        distance = town.distance
+
+        if minDistance > distance or minDistance == 0:
+            minDistance = distance
+            minTown = town
+
+    path = [minTown.id]
+
+    node = minTown
+
+    while node.previous is not None:
+        path.append(node.previous.id)
+        node = node.previous
+
+    print('Shortest trip from town -',startNodeId, 'to town -', minTown.id, 'is:', path[::-1], 'and costs', minDistance)
+    # # Target Vertex Node
+    # node = minTown
+    # # Backtrack from the Target Node to the starting node using Predecessors
+    # while node is not None:
+    #     print('%s' % node.id)
+    #     node = node.previous
+
+# def shortest(v, path):
+#     if v.previous:
+#         path.append(v.previous.getId())
+#         shortest(v.previous, path)
+#     return
+
+# to = g.getTown(9)
+# path = [to.getId()]
+# shortest(to, path)
+# print(path[::-1], to.getDistance())
