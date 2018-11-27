@@ -8,6 +8,8 @@ class Town:
         self.adjacent = []
         self.townEnterFee = townEnterFee
         self.partnershipNumber = None
+        self.visitedPartnerships = []
+        self.alreadyExpanded = False
 
         self.distance = math.inf
         self.previous = None
@@ -35,6 +37,13 @@ class Town:
 
         graph.setTown(self.id, self)
         graph.discountOnPartnershipTownFee(self.partnershipNumber, self.id)
+
+        self.alreadyExpanded = True
+
+        #for partnership in self.visitedPartnerships:
+        #    graph.discountPreviousPartnerships(partnership)
+
+        #graph.addVisitedPartnership(self.partnershipNumber)
 
 
 class Road:
@@ -96,6 +105,12 @@ class GraphOfTowns:
                 continue
             else:
                 self.getTown(town).townEnterFee = 0
+
+    def discountPreviousPartnerships(self, partnershipNumber):
+        listOfTowns = self.listOfTownPartnerships[partnershipNumber]
+
+        for town in listOfTowns:
+            self.getTown(town).townEnterFee = 0
 
 
     # def checkIfRoadExists(self, frm, to):

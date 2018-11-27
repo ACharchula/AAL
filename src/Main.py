@@ -50,10 +50,10 @@ drawing = nx.Graph()
 
 g.addTown('a', 1)
 g.addTown('b', 1)
-g.addTown('c', 100)
+g.addTown('c', 10) #100
 g.addTown('d', 1)
-g.addTown('e', 10)
-g.addTown('f', 100)
+g.addTown('e', 1000) #10
+g.addTown('f', 1000) #100
 g.addTown('g', 1)
 
 drawing.add_node('a', x='a')
@@ -65,7 +65,7 @@ drawing.add_node('f', x='f')
 drawing.add_node('g', x='g')
 
 g.addRoad('a', 'b', 1, 4)
-g.addRoad('a', 'c', 1, 4)
+g.addRoad('a', 'c', 1, 1000) #4
 g.addRoad('c', 'd', 1, 4)
 g.addRoad('b', 'd', 1, 4)
 g.addRoad('d', 'e', 1, 4)

@@ -96,14 +96,18 @@ def dijkstrav2(graph, startId, endId):
     heapq.heappush(queue, startNode)
 
     while queue:
+
+        #for x in queue:
+        #    print(' == ', x.id)
+
         current = heapq.heappop(queue)
 
         if current.id == endId:
             graph.finalTownList.append(current)
 
-        print(current.id)
+        #print(current.id)
 
-        if current.partnershipNumber is not None and current.townEnterFee != 0:
+        if current.partnershipNumber is not None and current.townEnterFee != 0 and current.alreadyExpanded is not True:
             copied = copy.deepcopy(cleanGraph)
             current.addChangedGraphToAdjacent(copied)
 
@@ -120,14 +124,15 @@ def dijkstrav2(graph, startId, endId):
             if newDistance < nextNode.distance:
                 nextNode.previous = current
                 nextNode.distance = newDistance
+
+                if nextNode in queue:
+                    queue.remove(nextNode)
+
                 heapq.heappush(queue, nextNode)
 
 
-
-
 def getShortestPath(graph, startNodeId):
-
-    minDistance = 0 ##pokaz wszystkie sciezki nei tylko jedna -- do zmienienia
+    minDistance = 0  ##pokaz wszystkie sciezki nei tylko jedna -- do zmienienia
     minTown = None
 
     for town in graph.finalTownList:
@@ -145,7 +150,8 @@ def getShortestPath(graph, startNodeId):
         path.append(node.previous.id)
         node = node.previous
 
-    print('Shortest trip from town -',startNodeId, 'to town -', minTown.id, 'is:', path[::-1], 'and costs', minDistance)
+    print('Shortest trip from town -', startNodeId, 'to town -', minTown.id, 'is:', path[::-1], 'and costs',
+          minDistance)
     # # Target Vertex Node
     # node = minTown
     # # Backtrack from the Target Node to the starting node using Predecessors
