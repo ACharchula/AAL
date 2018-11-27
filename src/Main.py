@@ -89,7 +89,13 @@ g.addTownToTownPartnership('e', 0)
 nx.draw(drawing, with_labels=True)
 plt.show()
 
+start = time.time()
 dijkstrav2(g, 'a', 'g')
+end = time.time()
+
+print(end - start)
+
+
 getShortestPath(g, 'a')
 
 # g = generateConnectedGraph(13, 3)

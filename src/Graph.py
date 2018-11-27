@@ -35,15 +35,26 @@ class Town:
             else:
                 road.secondTown = self
 
+        self.visitedPartnerships.append(self.partnershipNumber)
+
+        for x in self.visitedPartnerships:
+            graph.discountOnPartnershipTownFee(x)
+
         graph.setTown(self.id, self)
-        graph.discountOnPartnershipTownFee(self.partnershipNumber, self.id)
+
+        amountOfPartnerships = len(graph.listOfTownPartnerships)
+
+        index = 0
+
+        while index < amountOfPartnerships:
+            if index in self.visitedPartnerships:
+                index += 1
+                continue
+            else:
+                graph.addVisitedPartnerships(index, self.visitedPartnerships)
+                index += 1
 
         self.alreadyExpanded = True
-
-        #for partnership in self.visitedPartnerships:
-        #    graph.discountPreviousPartnerships(partnership)
-
-        #graph.addVisitedPartnership(self.partnershipNumber)
 
 
 class Road:
@@ -96,22 +107,27 @@ class GraphOfTowns:
 
     def setTown(self, townId, townNode):
         self.townDictionary[townId] = townNode
+    #
+    # def discountOnPartnershipTownFee(self, partnershipNumber, enteredTownId):
+    #     listOfTowns = self.listOfTownPartnerships[partnershipNumber]
+    #
+    #     for town in listOfTowns:
+    #         if town == enteredTownId:
+    #             continue
+    #         else:
+    #             self.getTown(town).townEnterFee = 0
 
-    def discountOnPartnershipTownFee(self, partnershipNumber, enteredTownId):
-        listOfTowns = self.listOfTownPartnerships[partnershipNumber]
-
-        for town in listOfTowns:
-            if town == enteredTownId:
-                continue
-            else:
-                self.getTown(town).townEnterFee = 0
-
-    def discountPreviousPartnerships(self, partnershipNumber):
+    def discountOnPartnershipTownFee(self, partnershipNumber):
         listOfTowns = self.listOfTownPartnerships[partnershipNumber]
 
         for town in listOfTowns:
             self.getTown(town).townEnterFee = 0
 
+    def addVisitedPartnerships(self, partnershipNumber, visitedPartnerships):
+        listOfTowns = self.listOfTownPartnerships[partnershipNumber]
+
+        for town in listOfTowns:
+            self.getTown(town).visitedPartnerships = visitedPartnerships.copy()
 
     # def checkIfRoadExists(self, frm, to):
     #     if to in self.townDictionary[frm].getConnections():
