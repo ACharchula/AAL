@@ -93,6 +93,22 @@ def dijkstrav2(graph, startId, endId):
     startNode = graph.getTown(startId)
     startNode.distance = 0
 
+##powtorka kodu! podobne w addchngedgraphtoAdjacent
+
+    if startNode.partnershipNumber is not None:
+        graph.discountOnPartnershipTownFee(startNode.partnershipNumber)
+        amountOfPartnerships = len(graph.listOfTownPartnerships)
+        index = 0
+        while index < amountOfPartnerships:
+            if index == startNode.partnershipNumber:
+                index += 1
+                continue
+            else:
+                l = list()
+                l.append(startNode.partnershipNumber)
+                graph.addVisitedPartnerships(index, l)
+                index += 1
+
     heapq.heappush(queue, startNode)
 
     while queue:
