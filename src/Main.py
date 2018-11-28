@@ -205,10 +205,10 @@ getShortestPath(g3, 1)
 
 print(np.random.normal(5,2,2))
 
-gg = generateConnectedGraph(100, 3, 2, 50, 5, 10, 2, 8, 1, 4, 2)
+gg = generateConnectedGraph(12, 3, 2, 50, 5, 10, 2, 8, 1, 4, 2)
 
 start = time.time()
-dijkstrav2(gg, 0, 89)
+dijkstrav2(gg, 0, 11)
 end = time.time()
 
 print(end - start)

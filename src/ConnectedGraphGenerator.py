@@ -31,23 +31,31 @@ def generateConnectedGraph(amountOfVertices, amountOfPartnerships, oneHourCost, 
          #                    minRoadFee, maxRoadLength, minRoadLength, maxTownsInPartnership, minTownsInPartnerships):
      #   return
 
+    colors = ['blue', 'green', 'orange', 'yellow', 'purple', 'brown', 'magneta']
+
     drawing = nx.Graph()
     graph = GraphOfTowns(oneHourCost)
 
     amountOfEdges = generateNumberOfEdges(amountOfVertices)
 
-    graph.addTown(0, random.randint(minTownFee, maxTownFee))
-    drawing.add_node(0, x=0)
+    townFee = random.randint(minTownFee, maxTownFee)
+
+    graph.addTown(0, townFee)
+    drawing.add_node(0, cost = townFee)
 
     for x in range(1, amountOfVertices):
-        graph.addTown(x, random.randint(minTownFee, maxTownFee))
+
+        townFee=random.randint(minTownFee, maxTownFee)
+        roadFee = random.randint(minRoadFee, maxRoadFee)
+        roadLength = random.randint(minRoadLength, maxRoadLength)
+
+        graph.addTown(x, townFee)
         secondNode = random.randint(0, x - 1)  # random vertex from previously created
-        graph.addRoad(x, secondNode, random.randint(minRoadFee, maxRoadFee),
-                      random.randint(minRoadLength, maxRoadLength))
+        graph.addRoad(x, secondNode, roadFee, roadLength)
         amountOfEdges -= 1
 
-        drawing.add_node(x, x=x)
-        drawing.add_edge(x, secondNode)
+        drawing.add_node(x, cost = townFee)
+        drawing.add_edge(x, secondNode, cost = roadFee + roadLength*oneHourCost)
 
     if amountOfEdges != 0:
         for x in range(0, amountOfEdges):
@@ -61,9 +69,12 @@ def generateConnectedGraph(amountOfVertices, amountOfPartnerships, oneHourCost, 
                 if graph.checkIfRoadExists(frm, to):
                     continue
                 else:
-                    graph.addRoad(frm, to, random.randint(minRoadFee, maxRoadFee),
-                                  random.randint(minRoadLength, maxRoadLength))
-                    drawing.add_edge(frm, to)
+
+                    roadFee = random.randint(minRoadFee, maxRoadFee)
+                    roadLength = random.randint(minRoadLength, maxRoadLength)
+
+                    graph.addRoad(frm, to, roadFee, roadLength)
+                    drawing.add_edge(frm, to, cost=roadFee + roadLength*oneHourCost)
                     added = True
 
     for x in range(0, amountOfPartnerships):
@@ -88,7 +99,37 @@ def generateConnectedGraph(amountOfVertices, amountOfPartnerships, oneHourCost, 
                     added = True
         partnershipIndex += 1
 
-    nx.draw(drawing, with_labels=True)
+
+
+    color = []
+
+    for node in drawing:
+        color.append('red')
+
+    listOfPartnerships = graph.listOfTownPartnerships
+
+    index = 0
+
+    for partnership in listOfPartnerships:
+        for town in partnership:
+            color[town] = colors[index]
+
+        index +=1
+
+
+
+    pos=nx.spring_layout(drawing)
+    nx.draw(drawing,pos, node_color=color, with_labels=True)
+
+    pos_attr = {}
+    for node, coords in pos.items():
+        pos_attr[node] = (coords[0], coords[1] + 0.08)
+
+    labels = nx.get_edge_attributes(drawing, 'cost')
+    nodesLables = nx.get_node_attributes(drawing, 'cost')
+    nx.draw_networkx_edge_labels(drawing,pos, edge_labels=labels)
+    nx.draw_networkx_labels(drawing, pos_attr , labels=nodesLables)
     plt.show()
+    #plt.savefig("graph.pdf")
 
     return graph
