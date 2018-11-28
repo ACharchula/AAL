@@ -120,6 +120,8 @@ class GraphOfTowns:
     def discountOnPartnershipTownFee(self, partnershipNumber):
         listOfTowns = self.listOfTownPartnerships[partnershipNumber]
 
+
+
         for town in listOfTowns:
             self.getTown(town).townEnterFee = 0
 
@@ -129,8 +131,12 @@ class GraphOfTowns:
         for town in listOfTowns:
             self.getTown(town).visitedPartnerships = visitedPartnerships.copy()
 
-    # def checkIfRoadExists(self, frm, to):
-    #     if to in self.townDictionary[frm].getConnections():
-    #         return True
-    #     else:
-    #         return False
+    def checkIfRoadExists(self, frm, to):
+
+        for road in self.townDictionary[frm].adjacent:
+            if to == road.firstTown.id:
+                return True
+            elif road == road.secondTown.id:
+                return True
+
+        return False

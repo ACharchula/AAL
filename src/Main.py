@@ -5,6 +5,9 @@ import time
 import networkx as nx
 import matplotlib.pyplot as plt
 import numpy as np
+import sys
+
+sys.setrecursionlimit(10000)
 
 graphToDraw = nx.Graph()
 g = GraphOfTowns(1)
@@ -200,7 +203,16 @@ end = time.time()
 print(end - start)
 getShortestPath(g3, 1)
 
-print(np.random.normal(5,2,100))
+print(np.random.normal(5,2,2))
+
+gg = generateConnectedGraph(100, 3, 2, 50, 5, 10, 2, 8, 1, 4, 2)
+
+start = time.time()
+dijkstrav2(gg, 0, 89)
+end = time.time()
+
+print(end - start)
+getShortestPath(gg, 0)
 
 
 # g = generateConnectedGraph(13, 3)
