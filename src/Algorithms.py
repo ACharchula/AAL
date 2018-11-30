@@ -166,8 +166,9 @@ def getShortestPath(graph, startNodeId):
         path.append(node.previous.id)
         node = node.previous
 
-    print('Shortest trip from town -', startNodeId, 'to town -', minTown.id, 'is:', path[::-1], 'and costs',
-          minDistance)
+    result = "Shortest trip from town " + str(startNodeId) + " to town - " + str(minTown.id) + " is: " + str(path[::-1]) + " and costs " + str(minDistance)
+
+    return result
     # # Target Vertex Node
     # node = minTown
     # # Backtrack from the Target Node to the starting node using Predecessors

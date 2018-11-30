@@ -99,8 +99,6 @@ def generateConnectedGraph(amountOfVertices, amountOfPartnerships, oneHourCost, 
                     added = True
         partnershipIndex += 1
 
-
-
     color = []
 
     for node in drawing:
@@ -119,7 +117,7 @@ def generateConnectedGraph(amountOfVertices, amountOfPartnerships, oneHourCost, 
 
 
     pos=nx.spring_layout(drawing)
-    nx.draw(drawing,pos, node_color=color, with_labels=True)
+    nx.draw(drawing,pos, node_color=color, edge_color= '#000000', width=0.25, with_labels=True)
 
     pos_attr = {}
     for node, coords in pos.items():
@@ -133,3 +131,76 @@ def generateConnectedGraph(amountOfVertices, amountOfPartnerships, oneHourCost, 
     #plt.savefig("graph.pdf")
 
     return graph
+
+def generateGraphFromTxt(listOfData):
+
+    colors = ['blue', 'green', 'orange', 'yellow', 'purple', 'brown', 'magneta']
+
+    numberOfTowns = listOfData[2]
+    numberOfRoads = listOfData[3]
+    oneHourTripCost = listOfData[4]
+    numberOfPartnerships = listOfData[5]
+    numberOfTownsInPartnerships = listOfData[6]
+
+    graph = GraphOfTowns(oneHourTripCost)
+    drawing = nx.Graph()
+
+    index = 7
+
+    for x in range(0,numberOfTowns):
+        graph.addTown(listOfData[index], listOfData[index+1])
+        drawing.add_node(listOfData[index], cost=listOfData[index+1])
+        index += 2
+
+    for x in range(0, numberOfRoads):
+        graph.addRoad(listOfData[index], listOfData[index+1], listOfData[index+2], listOfData[index+3])
+        drawing.add_edge(listOfData[index], listOfData[index+1], cost=listOfData[index+2] + listOfData[index+3]*oneHourTripCost)
+        index += 4
+
+    for x in range(0, numberOfPartnerships):
+        graph.addNewTownPartnership()
+
+    townColors = []
+
+    for node in drawing:
+        townColors.append('red')
+
+    for x in range(0, numberOfTownsInPartnerships):
+        graph.addTownToTownPartnership(listOfData[index], listOfData[index+1])
+
+    listOfPartnerships = graph.listOfTownPartnerships
+
+    index = 0
+
+    for partnership in listOfPartnerships:
+        for town in partnership:
+            townColors[town] = colors[index]
+
+        index += 1
+
+    pos=nx.spring_layout(drawing)
+    nx.draw(drawing,pos, node_color=townColors, edge_color= '#000000', width=0.25, with_labels=True)
+
+    pos_attr = {}
+    for node, coords in pos.items():
+        pos_attr[node] = (coords[0], coords[1] + 0.08)
+
+    labels = nx.get_edge_attributes(drawing, 'cost')
+    nodesLables = nx.get_node_attributes(drawing, 'cost')
+    nx.draw_networkx_edge_labels(drawing,pos, edge_labels=labels)
+    nx.draw_networkx_labels(drawing, pos_attr , labels=nodesLables)
+    plt.show()
+    #plt.savefig("graph.pdf")
+
+    return graph
+
+
+
+
+
+
+
+
+
+
+
