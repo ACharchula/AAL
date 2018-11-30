@@ -167,6 +167,7 @@ def generateGraphFromTxt(listOfData):
 
     for x in range(0, numberOfTownsInPartnerships):
         graph.addTownToTownPartnership(listOfData[index], listOfData[index+1])
+        index += 2
 
     listOfPartnerships = graph.listOfTownPartnerships
 

@@ -178,7 +178,7 @@ dijkstrav2(g2, 0, 7)
 end = time.time()
 
 print(end - start)
-getShortestPath(g2, 0)
+print(getShortestPath(g2, 0))
 
 g3 = GraphOfTowns(1)
 
@@ -201,7 +201,7 @@ dijkstrav2(g3, 1, 3)
 end = time.time()
 
 print(end - start)
-getShortestPath(g3, 1)
+print(getShortestPath(g3, 1))
 
 print(np.random.normal(5,2,2))
 
