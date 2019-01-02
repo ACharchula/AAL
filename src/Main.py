@@ -38,7 +38,7 @@ nx.draw(graphToDraw, with_labels=True)
 plt.show()
 
 dijkstrav2(g, 0, 3)
-getShortestPath(g, 0)
+print(getShortestPath(g, 0))
 
 # dijkstra(g, 0)
 #
@@ -46,7 +46,10 @@ getShortestPath(g, 0)
 # path = [to.getId()]
 # shortest(to, path)
 # print(path[::-1], to.getDistance())
-
+start = time.time()
+a = 2
+end = time.time()
+print('One operation', (end-start)*1000)
 
 g = GraphOfTowns(1)
 drawing = nx.Graph()

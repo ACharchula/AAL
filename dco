@@ -1,0 +1,15 @@
+mode1
+python3 PathFinder.py -m1 input.txt output.txt
+
+input.txt:
+1 - start node
+2 - ending node
+3 - number of towns
+4 - number of roads
+5 - oneHourTrpiCost
+6 - number of partnerships
+7 - number of towns in partnerships
+
+#3 lines: town id / town cost
+#4 lines: town id / town id / roadEnterFee / hoursOfDriving
+#7 lines: town id / partnership number

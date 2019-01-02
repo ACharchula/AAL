@@ -71,6 +71,7 @@ class GraphOfTowns:
         self.townDictionary = {}
         self.costOfOneHourTrip = costOfOneHourTrip
         self.finalTownList = []
+        self.amountOfRoads = 0
 
     def __iter__(self):
         return iter(self.townDictionary.values())
@@ -102,25 +103,16 @@ class GraphOfTowns:
         town1.addConnection(road)
         town2.addConnection(road)
 
+        self.amountOfRoads += 1
+
     def getTowns(self):
         return self.townDictionary.keys()
 
     def setTown(self, townId, townNode):
         self.townDictionary[townId] = townNode
-    #
-    # def discountOnPartnershipTownFee(self, partnershipNumber, enteredTownId):
-    #     listOfTowns = self.listOfTownPartnerships[partnershipNumber]
-    #
-    #     for town in listOfTowns:
-    #         if town == enteredTownId:
-    #             continue
-    #         else:
-    #             self.getTown(town).townEnterFee = 0
 
     def discountOnPartnershipTownFee(self, partnershipNumber):
         listOfTowns = self.listOfTownPartnerships[partnershipNumber]
-
-
 
         for town in listOfTowns:
             self.getTown(town).townEnterFee = 0
@@ -134,9 +126,15 @@ class GraphOfTowns:
     def checkIfRoadExists(self, frm, to):
 
         for road in self.townDictionary[frm].adjacent:
-            if to == road.firstTown.id:
-                return True
-            elif road == road.secondTown.id:
+            if to == road.firstTown.id or to == road.secondTown.id:
                 return True
 
         return False
+
+    def checkIfTownAlreadyInPartnership(self, townId):
+        for partnership in self.listOfTownPartnerships:
+            if townId in partnership:
+                return True
+
+        return False
+
