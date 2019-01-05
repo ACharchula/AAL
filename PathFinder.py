@@ -1,6 +1,6 @@
 import sys
 from src.ConnectedGraphGenerator import *
-from src.Algorithms import dijkstrav2, getShortestPath
+from src.Algorithms import dijkstra, getShortestPath
 import matplotlib.pyplot as plt
 import time
 
@@ -25,14 +25,14 @@ def theoreticalComplexity(amountOfTowns, amountOfRoads, listOfPartnerships):
 
         partnershipIndex += 1
 
-    # print('counted number of deepcopy', numberOfDeepCopy)
+    dijkstraComplexity = amountOfRoads*math.log10(amountOfTowns)
 
-    complexity = deepCopyComplexity * numberOfDeepCopy
+    complexity = deepCopyComplexity * numberOfDeepCopy + dijkstraComplexity * numberOfDeepCopy + dijkstraComplexity
 
     return complexity
 
 
-def compareResultsAndTheory(data):
+def compareResultsAndTheory(data, amountOfPartnerships, maxAmountOfTownsInPartnership):
     result = []
     prev = -1
     amount = 0
@@ -56,13 +56,18 @@ def compareResultsAndTheory(data):
     avg = sum / amount
     result.append((prev, avg, theoretical))
 
-
-
     mindex = int(len(result)/2 + 0.5) - 1
     c = result[mindex][1]/result[mindex][2]
-    print('  n      t(n)    q(n)')
+    print('=============================')
+    print('Amount of Partnerships:', amountOfPartnerships)
+
+    if amountOfPartnerships != 0:
+        print('Max amount of towns in partnership :', maxAmountOfTownsInPartnership)
+
+    print('=============================')
+    print('  Towns    t(n)    q(n)')
     for row in result:
-        print('%5d %10.2f %4.2f' % (row[0], row[1], row[1]/(c*row[2])))
+        print('%5d %10.2f %6.2f' % (row[0], row[1], row[1]/(c*row[2])))
 
 
 
@@ -73,7 +78,7 @@ def mode1(inputTxt, outputTxt):
     startingTown = listOfData[0]
     endingTown = listOfData[1]
     graph = generateGraphFromTxt(listOfData)
-    dijkstrav2(graph, startingTown, endingTown)
+    dijkstra(graph, startingTown, endingTown)
     result = getShortestPath(graph, startingTown)
     outputTxt.write(result + '\n')
     print(result)
@@ -84,15 +89,20 @@ def mode2(amountOfTowns, graphDensity, amountOfPartnerships, maxAmountOfTownsInP
     if amountOfPartnerships == 0:
         minTownsInPartnership = 0
     else:
-        minTownsInPartnership = 2
+        minTownsInPartnership = 1
 
-    graph = generateConnectedGraph(amountOfTowns, amountOfPartnerships, oneHourCost, maxTownFee, minTownFee, maxRoadFee,
+    if amountOfTowns < 100:
+        graph = generateConnectedGraph(amountOfTowns, amountOfPartnerships, oneHourCost, maxTownFee, minTownFee, maxRoadFee,
+                                   minRoadFee, maxRoadLength, minRoadLength, maxAmountOfTownsInPartnership,
+                                   minTownsInPartnership, graphDensity)
+    else:
+        graph = generateConnectedGraphWithoutDrawing(amountOfTowns, amountOfPartnerships, oneHourCost, maxTownFee, minTownFee, maxRoadFee,
                                    minRoadFee, maxRoadLength, minRoadLength, maxAmountOfTownsInPartnership,
                                    minTownsInPartnership, graphDensity)
     if graph is None:
         return
 
-    dijkstrav2(graph, startTown, endTown)
+    dijkstra(graph, startTown, endTown)
     result = getShortestPath(graph, startTown)
     print(result)
 
@@ -100,51 +110,84 @@ def mode2(amountOfTowns, graphDensity, amountOfPartnerships, maxAmountOfTownsInP
         plt.show()
 
 
-def mode3(startingAmountOfTowns, amountOfSteps, sizeOfStep, repetitions):
-    amountOfTowns = startingAmountOfTowns
-    minimalGraphDensity = 2 / startingAmountOfTowns
-    result = []
+def mode3(startingAmountOfTowns, startingAmountOfPartnerships, startingAmountOfTownsInPartnerships,
+          amountOfSteps, sizeOfStep, repetitions, maxAmountOfPartnerships, maxAmountOfTownsInPartnership):
 
     if amountOfSteps % 2 == 0:
-        print('Please give odd number as amount of steps')
+        print('Please give an odd number as amount of steps')
         return
 
-    for i in range(0, amountOfSteps):
-        for j in range(0, repetitions):
-            graphDensity = 1
-            amountOfPartnerships = 2
-            maxAmountOfTownsInPartnership = 2
-            graph = generateConnectedGraph(amountOfTowns, amountOfPartnerships, oneHourCost, maxTownFee, minTownFee,
+    graphDensity = 1
+
+    for amountOfPartnerships in range(startingAmountOfPartnerships, maxAmountOfPartnerships + 1):
+        for amountOfTownsInPartnership in range(startingAmountOfTownsInPartnerships, maxAmountOfTownsInPartnership + 1):
+
+            if amountOfPartnerships != 0 and amountOfTownsInPartnership == 0:
+                continue
+
+            amountOfTowns = startingAmountOfTowns
+            result = []
+
+            for i in range(0, amountOfSteps):
+                for j in range(0, repetitions):
+
+                    graph = generateConnectedGraphWithoutDrawing(amountOfTowns, amountOfPartnerships, oneHourCost, maxTownFee, minTownFee,
                                            maxRoadFee, minRoadFee, maxRoadLength, minRoadLength,
-                                           maxAmountOfTownsInPartnership, 2, graphDensity)
+                                           amountOfTownsInPartnership, amountOfTownsInPartnership, graphDensity)
 
-            for townId in range(0, amountOfTowns):
-                if graph.getTown(townId).partnershipNumber is None:
-                    startTown = townId
-                    break
+                    for townId in range(0, amountOfTowns):
+                        if graph.getTown(townId).partnershipNumber is None:
+                            startTown = townId
+                            break
 
-            start = time.time()
-            dijkstrav2(graph, startTown, amountOfTowns - 1)
-            end = time.time()
+                    start = time.time()
+                    dijkstra(graph, startTown, amountOfTowns - 1)
+                    end = time.time()
 
-            print('Amount of towns: ', amountOfTowns, 'Amount of roads:', graph.amountOfRoads, 'Loop: ', j, 'Result: ',
-                  (end - start) * 1000)
-            # print(graph.listOfTownPartnerships)
-            print(theoreticalComplexity(amountOfTowns, graph.amountOfRoads, graph.listOfTownPartnerships))
+                    print('Amount of towns: ', amountOfTowns, 'Loop: ', j, 'Result: ', (end - start) * 1000)
 
-            result.append((amountOfTowns, (end-start)*1000, theoreticalComplexity(amountOfTowns, graph.amountOfRoads,
-                                                                                  graph.listOfTownPartnerships)))
+                    result.append((amountOfTowns, (end-start)*1000, theoreticalComplexity(
+                        amountOfTowns, graph.amountOfRoads, graph.listOfTownPartnerships)))
 
-        amountOfTowns += sizeOfStep
+                amountOfTowns += sizeOfStep
 
-    compareResultsAndTheory(result)
+            compareResultsAndTheory(result, amountOfPartnerships, amountOfTownsInPartnership)
 
+            if amountOfPartnerships == 0:
+                break
+
+def warmUp():
+    graphDensity = 1
+
+    print('===Machine warm up started===')
+
+    for amountOfPartnerships in range(1,3):
+        for amountOfTownsInPartnership in range(1, 3):
+
+            amountOfTowns = 50
+
+            for i in range(0, 10):
+                for j in range(0, 10):
+
+                    graph = generateConnectedGraphWithoutDrawing(amountOfTowns, amountOfPartnerships, oneHourCost, maxTownFee, minTownFee,
+                                           maxRoadFee, minRoadFee, maxRoadLength, minRoadLength,
+                                           amountOfTownsInPartnership, amountOfTownsInPartnership, graphDensity)
+
+                    for townId in range(0, amountOfTowns):
+                        if graph.getTown(townId).partnershipNumber is None:
+                            startTown = townId
+                            break
+
+                    dijkstra(graph, startTown, amountOfTowns - 1)
+
+    print('===Machine warm up ended===')
 
 sys.setrecursionlimit(1000000)
 
 if sys.argv[1] == '-m1':
     inputFile = open(sys.argv[2], 'r')
     outputFile = open(sys.argv[3], 'a')
+
     mode1(inputFile, outputFile)
 elif sys.argv[1] == '-m2':
     amountOfTowns = int(sys.argv[2])
@@ -153,14 +196,21 @@ elif sys.argv[1] == '-m2':
     maxAmountOfTownsInPartnership = int(sys.argv[5])
     startTown = int(sys.argv[6])
     endTown = int(sys.argv[7])
+
     mode2(amountOfTowns, graphDensity, amountOfPartnerships, maxAmountOfTownsInPartnership, startTown, endTown)
 elif sys.argv[1] == '-m3':
     startingAmountOfTowns = int(sys.argv[2])
-    amountOfSteps = int(sys.argv[3])
-    sizeOfStep = int(sys.argv[4])
-    repetitions = int(sys.argv[5])
-    mode3(startingAmountOfTowns, amountOfSteps, sizeOfStep, repetitions)
-    mode3(startingAmountOfTowns, amountOfSteps, sizeOfStep, repetitions)
+    startingAmountOfPartnerships = int(sys.argv[3])
+    startingAmountOfTownsInPartnerships = int(sys.argv[4])
+    amountOfSteps = int(sys.argv[5])
+    sizeOfStep = int(sys.argv[6])
+    repetitions = int(sys.argv[7])
+    maxAmountOfPartnerships = int(sys.argv[8])
+    maxAmountOfTownsInPartnership = int(sys.argv[9])
+
+    #warmUp()
+    mode3(startingAmountOfTowns, startingAmountOfPartnerships, startingAmountOfTownsInPartnerships,
+          amountOfSteps, sizeOfStep, repetitions, maxAmountOfPartnerships, maxAmountOfTownsInPartnership)
 
 else:
     print('Please use available modes: -m1, -m2 or -m3.')

@@ -1,5 +1,4 @@
 import math
-import copy
 
 
 class Town:
@@ -10,15 +9,11 @@ class Town:
         self.partnershipNumber = None
         self.visitedPartnerships = []
         self.alreadyExpanded = False
-
         self.distance = math.inf
         self.previous = None
 
     def addConnection(self, road):
         self.adjacent.append(road)
-
-    # def __cmp__(self, other):
-    #     return self.cmp(self.distance, other.distance)
 
     def __lt__(self, other):
         return self.distance < other.distance
@@ -37,24 +32,32 @@ class Town:
 
         self.visitedPartnerships.append(self.partnershipNumber)
 
+        # change fee to 0
         for x in self.visitedPartnerships:
             graph.discountOnPartnershipTownFee(x)
 
         graph.setTown(self.id, self)
 
-        amountOfPartnerships = len(graph.listOfTownPartnerships)
+        self.assignVisitedPartnerships(graph)
 
-        index = 0
-
-        while index < amountOfPartnerships:
-            if index in self.visitedPartnerships:
-                index += 1
-                continue
-            else:
-                graph.addVisitedPartnerships(index, self.visitedPartnerships)
-                index += 1
+        # while index < len(graph.listOfTownPartnerships):
+        #     if index in self.visitedPartnerships:
+        #         index += 1
+        #         continue
+        #     else:
+        #         graph.addVisitedPartnerships(index, self.visitedPartnerships)
+        #         index += 1
 
         self.alreadyExpanded = True
+
+    # assign visitedPartnerships to towns in partnerships which were not visited
+    def assignVisitedPartnerships(self, graph):
+
+        for partnershipNumber in range(0, len(graph.listOfTownPartnerships)):
+            if partnershipNumber in self.visitedPartnerships:
+                continue
+            else:
+                graph.addVisitedPartnerships(partnershipNumber, self.visitedPartnerships)
 
 
 class Road:
@@ -137,4 +140,3 @@ class GraphOfTowns:
                 return True
 
         return False
-

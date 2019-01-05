@@ -11,3 +11,5 @@ Shortest trip from town 0 to town - 7 is: [0, 8, 0, 9, 4, 10, 4, 3, 11, 7] and c
 Shortest trip from town 0 to town - 7 is: [0, 8, 0, 9, 4, 10, 4, 3, 11, 7] and costs 41
 Shortest trip from town 0 to town - 7 is: [0, 8, 0, 9, 4, 10, 4, 3, 11, 7] and costs 41
 Shortest trip from town 0 to town - 7 is: [0, 8, 0, 9, 4, 10, 4, 3, 11, 7] and costs 41
+Shortest trip from town 0 to town - 7 is: [0, 8, 0, 9, 4, 10, 4, 3, 11, 7] and costs 41
+Shortest trip from town 0 to town - 7 is: [0, 8, 0, 9, 4, 10, 4, 3, 11, 7] and costs 41
