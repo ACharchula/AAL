@@ -79,9 +79,12 @@ def mode1(inputTxt, outputTxt):
     endingTown = listOfData[1]
     graph = generateGraphFromTxt(listOfData)
     dijkstra(graph, startingTown, endingTown)
-    result = getShortestPath(graph, startingTown)
-    outputTxt.write(result + '\n')
-    print(result)
+    results = getShortestPath(graph, startingTown)
+
+    for result in results:
+        outputTxt.write(result + '\n')
+        print(result)
+
     plt.show()
 
 

@@ -50,24 +50,29 @@ def dijkstra(graph, startId, endId):
 
 def getShortestPath(graph, startNodeId):
     minDistance = 0
-    minTown = None
+    minTown = []
 
     for town in graph.finalTownList:
         distance = town.distance
 
         if minDistance > distance or minDistance == 0:
             minDistance = distance
-            minTown = town
+            minTown.clear()
+            minTown.append(town)
+        elif minDistance == distance:
+            minTown.append(town)
 
-    path = [minTown.id]
+    results = []
 
-    node = minTown
+    for town in minTown:
+        path = [town.id]
+        node = town
 
-    while node.previous is not None:
-        path.append(node.previous.id)
-        node = node.previous
+        while node.previous is not None:
+            path.append(node.previous.id)
+            node = node.previous
 
-    result = "Shortest trip from town " + str(startNodeId) + " to town - " + str(minTown.id) + " is: " + str(
-        path[::-1]) + " and costs " + str(minDistance)
+        results.append("Shortest trip from town " + str(startNodeId) + " to town - " + str(town.id) + " is: " + str(
+            path[::-1]) + " and costs " + str(minDistance))
 
-    return result
+    return results
