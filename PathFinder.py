@@ -204,7 +204,10 @@ elif sys.argv[1] == '-m2':
     startTown = int(sys.argv[6])
     endTown = int(sys.argv[7])
 
-    mode2(amountOfTowns, graphDensity, amountOfPartnerships, maxAmountOfTownsInPartnership, startTown, endTown)
+    if graphDensity < 2/amountOfTowns:
+        print("Error - please insert graph denisty bigger or equal than 2/amountOfTowns!")
+    else:
+        mode2(amountOfTowns, graphDensity, amountOfPartnerships, maxAmountOfTownsInPartnership, startTown, endTown)
 elif sys.argv[1] == '-m3':
     startingAmountOfTowns = int(sys.argv[2])
     startingAmountOfPartnerships = int(sys.argv[3])
@@ -215,7 +218,7 @@ elif sys.argv[1] == '-m3':
     maxAmountOfPartnerships = int(sys.argv[8])
     maxAmountOfTownsInPartnership = int(sys.argv[9])
 
-    #warmUp()
+    warmUp()
     mode3(startingAmountOfTowns, startingAmountOfPartnerships, startingAmountOfTownsInPartnerships,
           amountOfSteps, sizeOfStep, repetitions, maxAmountOfPartnerships, maxAmountOfTownsInPartnership)
 
