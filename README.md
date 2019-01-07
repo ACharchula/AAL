@@ -22,7 +22,7 @@ In input.txt put your graph in given pattern:
 
 >**next (amount of roads) lines:** (town id) (next town id) (road enter fee) (hours of driving)
 
->**next (amount of towns in partnerships) lines: ** (town id) (partnership number)
+>**next (amount of towns in partnerships) lines:** (town id) (partnership number)
 
 Example:
 ```
