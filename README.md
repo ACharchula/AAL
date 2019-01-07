@@ -17,8 +17,11 @@ python3 PathFinder.py -m1 (input).txt (output).txt
 ```
 In input.txt put your graph in given pattern:
 >**in the first line:** (start node) (end node) (amount of towns) (amount of roads) (cost of one hour trip) (amount of partnerships) (amount of towns in partnerships)
+
 >**next (amount of towns) lines:** (town id) (town fee)
+
 >**next (amount of roads) lines:** (town id) (next town id) (road enter fee) (hours of driving)
+
 >**next (amount of towns in partnerships) lines: ** (town id) (partnership number)
 
 Example:
