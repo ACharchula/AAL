@@ -1,3 +1,5 @@
+# Antoni Charchuła AAL-2-LS podróż
+
 import sys
 from src.ConnectedGraphGenerator import *
 from src.Algorithms import dijkstra, getShortestPath
@@ -218,4 +220,4 @@ elif sys.argv[1] == '-m3':
           amountOfSteps, sizeOfStep, repetitions, maxAmountOfPartnerships, maxAmountOfTownsInPartnership)
 
 else:
-    print('Please use available modes: -m1, -m2 or -m3.')
+    print('Please use available modes: -m1, -m2 or -m3. Read Readme if you need more help')

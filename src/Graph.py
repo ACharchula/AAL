@@ -1,3 +1,5 @@
+# Antoni Charchuła AAL-2-LS podróż
+
 import math
 
 
@@ -39,14 +41,6 @@ class Town:
         graph.setTown(self.id, self)
 
         self.assignVisitedPartnerships(graph)
-
-        # while index < len(graph.listOfTownPartnerships):
-        #     if index in self.visitedPartnerships:
-        #         index += 1
-        #         continue
-        #     else:
-        #         graph.addVisitedPartnerships(index, self.visitedPartnerships)
-        #         index += 1
 
         self.alreadyExpanded = True
 

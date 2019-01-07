@@ -1,55 +1,11 @@
+# Antoni Charchuła AAL-2-LS podróż
+
 from src.Graph import *
 import random
 import networkx as nx
 
 # may add more colors if user would like to have more than 7 partnerships (not recommended)
 colors = ['blue', 'green', 'orange', 'yellow', 'purple', 'brown', 'magneta']
-
-
-def checkIfProperData(amountOfTowns, amountOfPartnerships, oneHourCost, maxTownFee, minTownFee, maxRoadFee,
-                      minRoadFee, maxRoadLength, minRoadLength, maxTownsInPartnership, minTownsInPartnerships,
-                      graphDensity):
-    if amountOfTowns <= 0:
-        print('Wrong value of amount of towns - please insert value bigger than 0')
-        return False
-    elif amountOfPartnerships < 0:
-        print('Wrong value of amount of partnerships - please insert value bigger or equal 0')
-        return False
-    elif oneHourCost <= 0:
-        print('Wrong value of one hour cost of a trip - please insert value bigger than 0')
-        return False
-    elif minTownFee <= 0:
-        print('Wrong value of minimal town fee - please insert value bigger than 0')
-        return False
-    elif maxTownFee < minTownFee:
-        print('Wrong value of maximal town fee - please insert value bigger or equal minimal town fee')
-        return False
-    elif minRoadFee <= 0:
-        print('Wrong value of minimal road fee - please insert value bigger than 0')
-        return False
-    elif maxRoadFee < minRoadFee:
-        print('Wrong value of maximal road fee - please insert value bigger or equal minimal road fee')
-        return False
-    elif minRoadLength <= 0:
-        print('Wrong value of minimal road length - please insert value bigger than 0')
-        return False
-    elif maxRoadLength < minRoadLength:
-        print('Wrong value of maximal road length - please insert value bigger or equal minimal road length')
-        return False
-    elif minTownsInPartnerships < 0:
-        print('Wrong value of minimal amount of towns in partnership - please insert value bigger than 0')
-        return False
-    elif amountOfPartnerships > 0 and minTownsInPartnerships < 1:
-        print('Wrong value of minimal amount of towns in partnership - please insert value bigger or equal 1')
-        return False
-    elif maxTownsInPartnership < minTownsInPartnerships:
-        print('Wrong value of maximal amount of towns in partnership - please insert value bigger or equal '
-              'minimal amount of towns in partnership')
-        return False
-    elif graphDensity < 2 / amountOfTowns or graphDensity > 1:
-        print("Wrong value of graph density - please insert value bigger or egual 2 / amountOfTowns "
-              "and smaller or equal 1")
-        return False
 
 
 def prepareDrawing(drawing, color):

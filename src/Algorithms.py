@@ -1,3 +1,5 @@
+# Antoni Charchuła AAL-2-LS podróż
+
 import heapq
 import copy
 

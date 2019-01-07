@@ -2,9 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0027d4d7-806c-458a-b07c-916c33dd26a4" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/PathFinder.py" beforeDir="false" afterPath="$PROJECT_DIR$/PathFinder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/Main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Algorithms.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/Algorithms.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ConnectedGraphGenerator.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/ConnectedGraphGenerator.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Graph.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/Graph.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -33,11 +34,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/PathFinder.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1950">
-              <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
+            <state relative-caret-position="3330">
+              <caret line="222" column="89" selection-start-line="222" selection-start-column="89" selection-end-line="222" selection-end-column="89" />
               <folding>
                 <element signature="e#0#10#0" expanded="true" />
               </folding>
@@ -46,19 +47,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Main.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3645">
-              <caret line="243" selection-start-line="243" selection-end-line="243" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Algorithms.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1080">
-              <caret line="72" selection-start-line="72" selection-end-line="72" />
+            <state>
+              <caret column="34" selection-start-column="34" selection-end-column="34" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
               </folding>
@@ -66,11 +58,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/Graph.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="450">
-              <caret line="42" column="17" selection-start-line="42" selection-start-column="17" selection-end-line="42" selection-end-column="17" />
+            <state relative-caret-position="630">
+              <caret line="42" column="45" selection-start-line="42" selection-start-column="45" selection-end-line="42" selection-end-column="45" />
             </state>
           </provider>
         </entry>
@@ -78,11 +70,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ConnectedGraphGenerator.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3390">
-              <caret line="228" selection-start-line="228" selection-end-line="228" />
+            <state relative-caret-position="-2071">
+              <caret line="8" selection-start-line="8" selection-end-line="8" />
               <folding>
                 <element signature="e#0#23#0" expanded="true" />
-                <marker date="1546704491861" expanded="true" signature="229:3511" ph="..." />
+                <marker date="1546859595366" expanded="true" signature="266:1143" ph="..." />
               </folding>
             </state>
           </provider>
@@ -132,15 +124,17 @@
         <option value="$PROJECT_DIR$/src/graph.py" />
         <option value="$PROJECT_DIR$/src/PathFinder.py" />
         <option value="$PROJECT_DIR$/src/Mode1.py" />
-        <option value="$PROJECT_DIR$/src/ConnectedGraphGenerator.py" />
-        <option value="$PROJECT_DIR$/src/Graph.py" />
-        <option value="$PROJECT_DIR$/src/Algorithms.py" />
         <option value="$PROJECT_DIR$/src/Main.py" />
+        <option value="$PROJECT_DIR$/src/Algorithms.py" />
+        <option value="$PROJECT_DIR$/src/ConnectedGraphGenerator.py" />
         <option value="$PROJECT_DIR$/PathFinder.py" />
+        <option value="$PROJECT_DIR$/src/Graph.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="1920" />
+    <option name="y" value="26" />
     <option name="width" value="950" />
     <option name="height" value="1001" />
   </component>
@@ -359,7 +353,7 @@
       <workItem from="1546686789162" duration="16739000" />
       <workItem from="1546708533373" duration="247000" />
       <workItem from="1546708898965" duration="59000" />
-      <workItem from="1546853589790" duration="2527000" />
+      <workItem from="1546853589790" duration="2938000" />
     </task>
     <task id="LOCAL-00001" summary="first">
       <created>1541341973283</created>
@@ -442,10 +436,10 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="95935000" />
+    <option name="totallyTimeSpent" value="96346000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1920" height="1080" extended-state="7" />
+    <frame x="1920" y="26" width="1920" height="1003" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.08804696" />
@@ -467,9 +461,9 @@
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="right" id="SciView" order="3" sideWeight="0.92654777" visible="true" weight="0.042689435" />
+      <window_info anchor="right" id="SciView" order="3" sideWeight="0.9269406" visible="true" weight="0.042689435" />
       <window_info anchor="right" id="Database" order="4" weight="0.32977587" />
-      <window_info anchor="right" x="0" y="0" width="430" height="803" id="Documentation" order="5" sideWeight="0.07345226" side_tool="true" visible="true" weight="0.042689435" />
+      <window_info anchor="right" x="0" y="0" width="430" height="803" id="Documentation" order="5" sideWeight="0.07305936" side_tool="true" visible="true" weight="0.042689435" />
     </layout>
     <layout-to-restore>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.08804696" />
@@ -512,22 +506,6 @@
     <MESSAGE value="new graph" />
     <MESSAGE value="Mode 1 created" />
     <option name="LAST_COMMIT_MESSAGE" value="Mode 1 created" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/Main.py</url>
-          <line>40</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/Main.py</url>
-          <line>236</line>
-          <option name="timeStamp" value="11" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
     <entry file="file:///usr/local/lib/python3.6/dist-packages/matplotlib/figure.py" />
@@ -578,21 +556,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/PathFinder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3330">
+          <caret line="222" column="89" selection-start-line="222" selection-start-column="89" selection-end-line="222" selection-end-column="89" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/ConnectedGraphGenerator.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3390">
-          <caret line="228" selection-start-line="228" selection-end-line="228" />
+        <state relative-caret-position="-2071">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
           <folding>
             <element signature="e#0#23#0" expanded="true" />
-            <marker date="1546704491861" expanded="true" signature="229:3511" ph="..." />
+            <marker date="1546859595366" expanded="true" signature="266:1143" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Algorithms.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1080">
-          <caret line="72" selection-start-line="72" selection-end-line="72" />
+        <state>
+          <caret column="34" selection-start-column="34" selection-end-column="34" />
           <folding>
             <element signature="e#0#12#0" expanded="true" />
           </folding>
@@ -601,18 +589,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Graph.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="42" column="17" selection-start-line="42" selection-start-column="17" selection-end-line="42" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PathFinder.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1950">
-          <caret line="32" lean-forward="true" selection-start-line="32" selection-end-line="32" />
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="630">
+          <caret line="42" column="45" selection-start-line="42" selection-start-column="45" selection-end-line="42" selection-end-column="45" />
         </state>
       </provider>
     </entry>
