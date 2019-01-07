@@ -106,8 +106,10 @@ def mode2(amountOfTowns, graphDensity, amountOfPartnerships, maxAmountOfTownsInP
         return
 
     dijkstra(graph, startTown, endTown)
-    result = getShortestPath(graph, startTown)
-    print(result)
+    results = getShortestPath(graph, startTown)
+
+    for result in results:
+        print(result)
 
     if amountOfTowns < 100:
         plt.show()
