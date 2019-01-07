@@ -11,7 +11,7 @@ Dane są miasta połączone siecią dróg. Dla każdej drogi znany jest czas prz
 
 Aplication running modes
 ---
-###Mode 1
+### Mode 1
 ```
 python3 PathFinder.py -m1 (input).txt (output).txt
 ```
@@ -36,13 +36,13 @@ Example:
 3 0
 ```
 This mode will find shortest path in given graph of towns, display result in console and save it to output.txt Additionally it will display the graph.
-###Mode 2
+### Mode 2
 ```
 python3 PathFinder.py -m2 (amount of Towns) (graph density) (amount of partnerships) (max amount of towns in partnerships) (start town) (end town)
 ```
 This mode will generate random graph with given parameters. If amount of towns is less than 100, program will display the graph.
 
-###Mode 3
+### Mode 3
 ```
 python3 PathFinder.py -m3 (starting amount of towns) (starting amount of partnerships) (starting amount of towns in partnerships) (amount of steps) (size of step) (repetitions) (max amount of partnerships) (max amount of towns in partnership)
 ```
@@ -50,21 +50,21 @@ This mode will perform tests of theoretical complexity. It generates results in 
 
 Data structure , algorithms and files
 ---
-###Data structure - Graph.py
+### Data structure - Graph.py
 graph - class **GraphOfTowns**
 vertex - class **Town**
 edges - class **Road**
 
 Towns are stored in dictionary in GraphOfTowns. Every town contains list of roads. And every road contains two ids of towns, which it connect. 
 
-###Algorithms
+### Algorithms
 **Graph generation** - class ConnectedGraphGenerator. Iteration in range(0, amountOfTowns) and adds town to random town in graph. If there will be roads to add, it searches two random towns which are not connected and adds a road.
 
 **Shortest path finding** - class Algorithms. Algorithm based on dijkstra algorithm with heap (in projected heapq was used). One big modifiation is changing the graph when town which belongs to partnership is reached. In this situation, algorithm creates copy of original graph, replaces the the town with the reached one. Adds additional roads to reached town from the copied town. And changes fees of specific towns in partnerships in copied graph. Also it saves in towns data which partnerships has been already connected.
 
 This modification let us find shortest path in dynamic changing graph. Also it lets coming back to previously visited towns, which is sometimes needed. 
 
-###Files
+### Files
 
 **PathFinder** - "main" of the program, it contains modes and functions which calculate theoretical complexity
 **Graph** - contains data structure
