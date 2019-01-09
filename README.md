@@ -70,8 +70,11 @@ This modification let us find shortest path in dynamic changing graph. Also it l
 ### Files
 
 **PathFinder** - "main" of the program, it contains modes and functions which calculate theoretical complexity
+
 **Graph** - contains data structure
-**ConnectedGraphGenerator** - contains functions which generates graph. There is function with drawing generation and without it, because drawing generations slow the program.
+
+**ConnectedGraphGenerator** - contains functions which generates graph. There is function with drawing generation and without it, because drawing generations slows the program.
+
 **Algorithms** - contains algorithms connected with shortest path finding and displaying the result.
 
 Additional information
