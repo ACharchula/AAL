@@ -27,7 +27,10 @@ def theoreticalComplexity(amountOfTowns, amountOfRoads, listOfPartnerships):
 
         partnershipIndex += 1
 
-    dijkstraComplexity = amountOfRoads*math.log10(amountOfTowns)
+        if len(partnership) != 0:
+            numberOfDeepCopy += 1
+
+    dijkstraComplexity = amountOfRoads*math.log10(amountOfTowns) + amountOfTowns*math.log10(amountOfTowns)
 
     complexity = deepCopyComplexity * numberOfDeepCopy + dijkstraComplexity * numberOfDeepCopy + dijkstraComplexity
 
